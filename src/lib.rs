@@ -14,6 +14,8 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{Data, DeriveInput, Fields, GenericArgument, PathArguments, Type, parse_macro_input};
 
+/// 为结构体的所有字段添加合适的读取方法，能识别基础类型的Copy、Clone，并适用 Option<T>，还支持 AsDeref。
+/// 你可以为字段添加属性，以 Clone、Copy 或 AsRef、AsDeref 未能识别的类型
 #[proc_macro_derive(Getters, attributes(getter))]
 pub fn getters(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
